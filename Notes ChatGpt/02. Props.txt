@@ -1,0 +1,31 @@
+✅ What is Props?
+
+Props means properties.
+
+👉 Props are used to send data from parent component to child component.
+👉 Props are read-only (you cannot change them).
+
+Simple Example of Props 👇
+
+Parent Component:
+function App() {
+  return <Welcome name="John" />;
+}
+
+Child Component:
+function Welcome(props) {
+  return <h1>Hello {props.name}</h1>;
+}
+
+Output:
+Hello John
+
+
+--------------------------------------------------------
+Easy to Remember 🧠
+
+Props = data coming from outside
+Passed like HTML attributes
+Cannot be changed
+
+-------------------------------------------------------

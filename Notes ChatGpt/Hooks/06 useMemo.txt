@@ -1,0 +1,160 @@
+🧠 First: What problem does useMemo solve?
+
+React re-renders a component when:
+
+State changes
+Props change
+
+👉 On every re-render, all code runs again.
+
+This is fine for small work…
+❌ But heavy calculations can make your app slow.
+
+✅ What is useMemo?
+
+useMemo is a React Hook.
+
+It remembers the result of a calculation
+and reuses it until dependencies change.
+
+In short:
+
+useMemo = cache a value
+
+-----------------------------------------------------------------------------------
+
+🧠 Real-Life Example
+
+Think of a calculator 🧮
+100 × 100 = 10,000
+If input didn’t change → why calculate again? 😅
+
+👉 useMemo says: “I remember the answer.”
+
+------------------------------------------------------------------------------
+🔹 Basic Syntax
+const memoizedValue = useMemo(() => {
+  return expensiveCalculation;
+}, [dependencies]);
+
+---------------------------------------------------------------------------------
+
+🔥 Example WITHOUT useMemo (Problem)
+function App() {
+  const [count, setCount] = useState(0);
+
+  const slowFunction = () => {
+    console.log("Running slow function...");
+    let total = 0;
+    for (let i = 0; i < 100000000; i++) {
+      total += i;
+    }
+    return total;
+  };
+
+  const result = slowFunction();
+
+  return (
+    <>
+      <p>{count}</p>
+      <button onClick={() => setCount(count + 1)}>
+        Increase
+      </button>
+      <p>Result: {result}</p>
+    </>
+  );
+}
+❌ slowFunction runs every time you click the button.
+
+--------------------------------------------------------------------------
+
+✅ Example WITH useMemo (Solution)
+import { useMemo, useState } from "react";
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  const slowFunction = () => {
+    console.log("Running slow function...");
+    let total = 0;
+    for (let i = 0; i < 100000000; i++) {
+      total += i;
+    }
+    return total;
+  };
+
+  const result = useMemo(() => {
+    return slowFunction();
+  }, []);
+
+  return (
+    <>
+      <p>{count}</p>
+      <button onClick={() => setCount(count + 1)}>
+        Increase
+      </button>
+      <p>Result: {result}</p>
+    </>
+  );
+}
+
+🎉 What changed?
+
+slowFunction runs only once
+Button clicks are fast 🚀
+-----------------------------------------------------------------------------
+
+🧠 Dependency Array Explained
+useMemo(() => {}, [deps]);
+
+| Dependencies | When recalculates  |
+| ------------ | ------------------ |
+| `[]`         | Only once          |
+| `[count]`    | When count changes |
+| No array     | Every render ❌    |
+
+
+
+🔥 Example with Dependency
+const result = useMemo(() => {
+  return number * 2;
+}, [number]);
+👉 Recalculates only when number changes
+
+
+
+❌ When NOT to use useMemo
+
+Simple calculations
+Small apps
+Overusing it makes code harder 😅
+
+
+🧠 useMemo vs useEffect vs useRef
+| Hook      | Purpose         |
+| --------- | --------------- |
+| useMemo   | Cache value     |
+| useEffect | Run side effect |
+| useRef    | Store value     |
+
+
+🎯 Very Simple Rule (Remember This!)
+If calculation is heavy AND runs often → useMemo
+
+🎯 Mini Example: Filter List
+const filteredList = useMemo(() => {
+  return items.filter(item => item.includes(search));
+}, [items, search]);
+👉 Filters only when needed
+
+
+-----------------------------------------------
+🎉 Final Easy Summary
+
+useMemo improves performance
+Caches calculation result
+Controlled by dependency array
+Use only when needed
+
+
+

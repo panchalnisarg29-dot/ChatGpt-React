@@ -1,0 +1,146 @@
+✅ What is useEffect?
+useEffect is a React Hook.
+
+👉 It lets you run side effects in a component.
+
+In simple words:
+useEffect = run some code AFTER the component renders
+
+❓ What is a “Side Effect”?
+
+A side effect is anything outside UI rendering, like:
+
+Fetching data from API 🌐
+Updating document title 🧠
+Using localStorage 💾
+Timers (setTimeout, setInterval) ⏱️
+Console logs
+
+🔹 Basic Syntax of useEffect
+
+useEffect(() => {
+  // code to run
+}, []);
+
+🧠 How useEffect Works (Mental Model)
+Component renders → useEffect runs
+
+🔥 Example 1: Runs on Every Render
+import { useEffect } from "react";
+
+function Example() {
+  useEffect(() => {
+    console.log("Component rendered");
+  });
+
+  return <h1>Hello</h1>;
+}
+👉 Runs every time component renders
+
+🔥 Example 2: Run Only ONCE (Most Common!)
+import { useEffect } from "react";
+
+function Example() {
+  useEffect(() => {
+    console.log("Component mounted");
+  }, []);
+
+  return <h1>Hello</h1>;
+}
+
+Why?
+
+Empty array []
+Means: run only first time
+
+🔥 Example 3: Run When State Changes
+import { useState, useEffect } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("Count changed:", count);
+  }, [count]);
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {count}
+    </button>
+  );
+}
+👉 Runs only when count changes
+
+
+🧠 Dependency Array Explained
+useEffect(() => {}, [dependency]);
+___________________________________
+| Dependency | When effect runs   |
+| ---------- | ------------------ |
+| No array   | Every render       |
+| `[]`       | Only once          |
+| `[count]`  | When count changes |
+-----------------------------------
+
+🔥 Real-Life Example: Change Page Title
+
+useEffect(() => {
+  document.title = `Count: ${count}`;
+}, [count]);
+👉 Updates browser tab title
+
+🔥 API Call Example (Very Common)
+
+useEffect(() => {
+  fetch("https://api.example.com/users")
+    .then(res => res.json())
+    .then(data => console.log(data));
+}, []);
+👉 Fetch data once when page loads
+
+🧹 Cleanup in useEffect (Advanced but Important!)
+
+useEffect(() => {
+  const timer = setInterval(() => {
+    console.log("Running...");
+  }, 1000);
+
+  return () => {
+    clearInterval(timer);
+  };
+}, []);
+👉 Cleanup runs when component unmounts
+
+❗ Very Important Rules
+
+useEffect runs after render
+Never make useEffect callback async
+Put dependencies correctly
+Avoid infinite loops 😅
+
+🧠 Easy Analogy (Remember This!)
+
+useState → Memory
+useEffect → Action after memory changes
+===================================================================
+🎯 Mini Example: Save to LocalStorage
+
+useEffect(() => {
+  localStorage.setItem("count", count);
+}, [count]);
+
+
+🎉 Final Easy Summary
+
+useEffect runs after render
+Used for side effects
+Dependency array controls when it runs
+Cleanup prevents memory leaks
+
+
+
+
+
+
+
+

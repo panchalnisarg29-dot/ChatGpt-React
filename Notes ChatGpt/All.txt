@@ -1,0 +1,4 @@
+React components always receive props as an object
+You must either:
+destructure { title }, or
+use props.title

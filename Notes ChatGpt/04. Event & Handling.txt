@@ -1,0 +1,72 @@
+✅ What is an Event?
+
+An event is something that happens on the screen.
+
+Examples:
+Button click 🖱️
+Typing in input ⌨️
+Mouse move 🐭
+Form submit 📄
+
+In React, events let us respond to user actions.
+
+✅ What is Event Handling?
+
+Event handling means what to do when an event happens.
+
+👉 Example:
+When button is clicked → show message
+When input changes → update state
+
+
+
+🔹 Common React Events
+_________________________________
+|Event	             |   When it happens
+|_______________|___________________
+|onClick	             |   Button is clicked
+|onChange	             |    Input value changes
+|onSubmit	             |    Form is submitted
+|onMouseOver        |    Mouse goes over element
+|_______________|_____________________
+
+
+🔥 Simple Example: Button Click
+Code:
+function ClickExample() {
+  function handleClick() {
+    alert("Button clicked!");
+  }
+
+  return <button onClick={handleClick}>Click Me</button>;
+}
+
+What’s happening?
+onClick = event
+handleClick = event handler (function)
+Function runs only when clicked
+
+🔥 Example Using Arrow Function
+<button onClick={() => alert("Hello React!")}>
+  Click
+</button>
+👉 Arrow function runs when event happens.
+
+
+---------------------------------------------------------------------------------------------
+
+🧩 Simple Definition (Remember This!)
+
+👉 Event = user action
+👉 Event Handling = function that reacts to user action
+
+---------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
